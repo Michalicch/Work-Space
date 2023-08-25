@@ -1,0 +1,23 @@
+.hero {
+  padding: 60px 0 50px;
+}
+.hero__container {
+  position: relative;
+  padding: 57px 0;
+}
+.hero__container::after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 421px;
+  height: 330px;
+  background: url(../img/baner.png) no-repeat center/contain;
+  right: -9px;
+  top: 0;
+}
+.hero__title {
+  max-width: 780px;
+  font-size: 90px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}

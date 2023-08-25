@@ -1,0 +1,19 @@
+/* HEADER */
+.header {
+  padding: 40px 0;
+}
+.header__container {
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header__link {
+  padding: 12px 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #a6adff;
+  border-radius: 8px;
+  font-size: 20px;
+}

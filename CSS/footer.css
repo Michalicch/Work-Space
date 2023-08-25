@@ -1,0 +1,54 @@
+/* FOOTER */
+.footer {
+}
+.container {
+}
+.footer__container {  
+  margin-top: 50px;
+  margin-bottom: 40px;
+  display: grid;
+  gap: 27px;
+  grid-template-areas: 
+    "logo ."
+    "copyright contacts";  
+}
+.footer__logo {
+  grid-area: logo;  
+}
+.footer__copyright {
+  grid-area: copyright;  
+}
+.footer__contacts {
+  grid-area: contacts;
+  justify-self: end;
+  min-width: 180px; 
+}
+.footer__contact:first-child {
+  margin-bottom: 8px;
+}
+.footer__link:hover {
+  color: brown;
+}
+/* ===============  Стили для флексов ========*/
+/* .footer__container {
+  height: 90px;
+  margin-top: 50px;
+  margin-bottom: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer__logo {
+  margin-bottom: 27px;
+}
+.footer__copyright {
+  margin-bottom: 22px;
+}
+.footer__contacts {
+  min-width: 180px;
+  margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+} */

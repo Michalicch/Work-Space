@@ -5,8 +5,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./CSS/normalize.css">
-	<link rel="stylesheet" href="./CSS/main.css">
+	<link rel="stylesheet" href="./CSS/index.css">
 	<script src="./js/main.js" defer></script>
 	<title>Work Space</title>
 </head>
@@ -23,7 +22,7 @@
 	<main class="main">
 		<section class="hero">
 			<div class="container  hero__container">
-				<h1>НАЙДИ РАБОТУ
+				<h1 class="hero__title">НАЙДИ РАБОТУ
 					<span class="blue-text">СВОЕЙ МЕЧТЫ</span>
 				</h1>
 			</div>
@@ -31,6 +30,7 @@
 
 		<div class="vacancies" id="vacancies">
 			<div class="container vacancies__container">
+				<button class="vacancies__filter-btn">Фильтр</button>
 				<section class="vacancies__filter filter">
 					<h2 class="filter__title">Фильтр</h2>
 
@@ -56,7 +56,7 @@
 
 						<div class="filter__checkboxes">
 							<fieldset class="filter__fieldset">
-								<legend>Формат</legend>
+								<legend class="filter__legend">Формат</legend>
 								<label for="" class="filter__label checkbox">
 									<input class="checkbox__input" type="checkbox" name="format" value="Офис">Офис
 								</label>
@@ -69,7 +69,7 @@
 							</fieldset>
 
 							<fieldset class="filter__fieldset">
-								<legend>Опыт работы</legend>
+								<legend class="filter__legend">Опыт работы</legend>
 								<label for="" class="filter__label checkbox">
 									<input class="checkbox__input" type="checkbox" name="experience" value="Не важно">Не важно
 								</label>
@@ -86,7 +86,7 @@
 							</fieldset>
 
 							<fieldset class="filter__fieldset">
-								<legend>Занятость</legend>
+								<legend class="filter__legend">Занятость</legend>
 								<label for="" class="filter__label checkbox">
 									<input class="checkbox__input" type="checkbox" name="type" value="Полная">Полная
 								</label>
@@ -293,6 +293,20 @@
 
 	<footer class="footer">
 		<div class="container footer__container">
+
+			<img class="footer__logo" src="./img/footer_logo.svg" alt="">
+			<p class="footer__copyright">© Work Space, 2023</p>
+
+			<ul class="footer__contacts">
+				<li class="footer__contact">Designer: <a class="footer__link" href="#">Anastasia Ilina</a></li>
+				<li class="footer__contact">Developer: <a class="footer__link" href="#">Michalicch</a></li>
+			</ul>
+		</div>
+
+	</footer>
+	<!-- Вариант верстки под флекс -->
+	<!-- <footer class="footer">
+		<div class="container footer__container">
 			<div class="logo__wrapper">
 				<img class="footer__logo" src="./img/footer_logo.svg" alt="">
 				<p class="footer__copyright">© Work Space, 2023</p>
@@ -300,11 +314,42 @@
 			<ul class="footer__contacts">
 				<li class="footer__contact">Designer: <a class="footer__link" href="#">Anastasia Ilina</a></li>
 				<li class="footer__contact">Developer: <a class="footer__link" href="#">Michalicch</a></li>
-
 			</ul>
 		</div>
+	</footer> -->
 
-	</footer>
+	<div class="modal__body">
+		<article class="modal__vacancy" tabindex="0">
+			<div class="vacancy__title-wrapper">
+				<img class="modal__img" src="./img/card_logo_3.png" alt="Логотип компании YADRO">
+				<div class="title-wrapper">
+					<p class="title__company">Creative People</p>
+					<h3 class="vacancy__skill">Графический дизайнер</h3>
+				</div>
+
+			</div>
+			<div class="vacancy__content-wrapper">
+				<div class="content__description">
+					<p class="description__text">Привет. Мы в CreativePeople ищем middle графического дизайнера в свою дизайн
+						команду. Удаленно, из любой точки нашей страны, где у вас будет хороший интернет. Опыт работы в разработке
+						логотипов, фирменных стилей обязателен.
+					</p>
+					<p class="description__text">У нас в портфолио много крупных российских компаний, с некоторыми мы работаем уже
+						много лет и делаем самые разные проекты, от сайтов до мобильных приложений.</p>
+				</div>
+				<ul class="vacancy__mfields">
+					<li class="vacancy__mfield">от 110 000₽</li>
+					<li class="vacancy__mfield">проектная работа</li>
+					<li class="vacancy__mfield">удаленный</li>
+					<li class="vacancy__mfield">опыт от 1 года до 3-х лет</li>
+					<li class="vacancy__mfield">Москва</li>
+				</ul>
+			</div>
+			<p class="email__link">Отправляйте резюме на <a
+					href="mailto:creativepeople@gmail.com">CreativePeople@gmail.com</a></p>
+
+		</article>
+	</div>
 
 
 
