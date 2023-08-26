@@ -5,13 +5,53 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="./CSS/index.css">
-	<script src="./js/main.js" defer></script>
 	<title>Work Space</title>
+	<style id="preload">
+		body {
+			position: relative;
+		}
+
+		body::before {
+			content: '';
+			position: fixed;
+			z-index: 9998;
+			inset: 0;
+			background-color: rgb(255, 255, 255, 0.9);
+		}
+
+		body::after {
+			content: '';
+			position: fixed;
+			z-index: 9999;
+			inset: 0;
+			background-color: rgb(255, 255, 255, 0.7);
+			background-image: url('./img/preloader.svg');
+			background-position: center;
+			background-size: 10%;
+			background-repeat: no-repeat;
+			animation: rotate 0.5s infinite linear;
+
+		}
+
+		@keyframes rotate {
+			0% {
+				transform: rotate(0deg);
+			}
+
+			100% {
+				transform: rotate(360deg);
+			}
+		}
+	</style>
+
+	<link rel="stylesheet" href="./CSS/index.css">
+	<script src="./js/preload.js" defer></script>
+	<script src="./js/choices.min.js" defer></script>
+	<script src="./js/script.js" defer></script>
+	<script src="./js/modal.js" defer></script>
 </head>
 
 <body>
-
 	<header class="header">
 		<div class="container header__container">
 			<img class="header__logo" src="./img/logo.svg" alt="Логотип WorkSpace">
@@ -317,39 +357,41 @@
 			</ul>
 		</div>
 	</footer> -->
+	<div class="modal">
+		<div class="modal__body">
+			<article class="modal__vacancy" tabindex="0">
+				<div class="vacancy__title-wrapper">
+					<img class="modal__img" src="./img/card_logo_3.png" alt="Логотип компании YADRO">
+					<div class="title-wrapper">
+						<p class="title__company">Creative People</p>
+						<h3 class="vacancy__skill">Графический дизайнер</h3>
+					</div>
 
-	<div class="modal__body">
-		<article class="modal__vacancy" tabindex="0">
-			<div class="vacancy__title-wrapper">
-				<img class="modal__img" src="./img/card_logo_3.png" alt="Логотип компании YADRO">
-				<div class="title-wrapper">
-					<p class="title__company">Creative People</p>
-					<h3 class="vacancy__skill">Графический дизайнер</h3>
 				</div>
-
-			</div>
-			<div class="vacancy__content-wrapper">
-				<div class="content__description">
-					<p class="description__text">Привет. Мы в CreativePeople ищем middle графического дизайнера в свою дизайн
-						команду. Удаленно, из любой точки нашей страны, где у вас будет хороший интернет. Опыт работы в разработке
-						логотипов, фирменных стилей обязателен.
-					</p>
-					<p class="description__text">У нас в портфолио много крупных российских компаний, с некоторыми мы работаем уже
-						много лет и делаем самые разные проекты, от сайтов до мобильных приложений.</p>
+				<div class="vacancy__content-wrapper">
+					<div class="content__description">
+						<p class="description__text">Привет. Мы в CreativePeople ищем middle графического дизайнера в свою дизайн
+							команду. Удаленно, из любой точки нашей страны, где у вас будет хороший интернет. Опыт работы в разработке
+							логотипов, фирменных стилей обязателен.
+						</p>
+						<p class="description__text">У нас в портфолио много крупных российских компаний, с некоторыми мы работаем
+							уже
+							много лет и делаем самые разные проекты, от сайтов до мобильных приложений.</p>
+					</div>
+					<ul class="vacancy__mfields">
+						<li class="vacancy__mfield">от 110 000₽</li>
+						<li class="vacancy__mfield">проектная работа</li>
+						<li class="vacancy__mfield">удаленный</li>
+						<li class="vacancy__mfield">опыт от 1 года до 3-х лет</li>
+						<li class="vacancy__mfield">Москва</li>
+					</ul>
 				</div>
-				<ul class="vacancy__mfields">
-					<li class="vacancy__mfield">от 110 000₽</li>
-					<li class="vacancy__mfield">проектная работа</li>
-					<li class="vacancy__mfield">удаленный</li>
-					<li class="vacancy__mfield">опыт от 1 года до 3-х лет</li>
-					<li class="vacancy__mfield">Москва</li>
-				</ul>
-			</div>
-			<p class="email__link">Отправляйте резюме на <a
-					href="mailto:creativepeople@gmail.com">CreativePeople@gmail.com</a></p>
-
-		</article>
+				<p class="email__link">Отправляйте резюме на <a
+						href="mailto:creativepeople@gmail.com">CreativePeople@gmail.com</a></p>
+			</article>
+		</div>
 	</div>
+
 
 
 
