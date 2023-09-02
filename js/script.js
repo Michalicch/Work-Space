@@ -2,7 +2,10 @@ const API_URL = "https://workspace-methed.vercel.app/";
 const LOCATION_URL = "api/locations";
 const VACANCY_URL = "api/vacancy";
 
+const cardsList = document.querySelector('.cards__list');
 
+let lastUrl = "";
+const pagination = {};
 
 const getData = async (url, cbSuccess, cbError) => {
 	try {
@@ -37,15 +40,44 @@ const createCards = (data) =>
 		return li;
 	});
 
-const renderVacancy = (data, cardsList) => {
+const renderVacancies = (data) => {
+	const cardsList = document.querySelector('.cards__list');
 	cardsList.textContent = '';
 	const cards = createCards(data);
 	cardsList.append(...cards);
-}
+
+	if (data.pagination) { //если в data были данные о пагинации
+		Object.assign(pagination, data.pagination) //то обновляем данные которые пришли в data.pagination
+	}
+	observer.observe(cardsList.lastElementChild);
+};
+
+const renderMoreVacancies = (data) => {
+	const cardsList = document.querySelector('.cards__list');
+	const cards = createCards(data);
+	cardsList.append(...cards);
+
+	if (data.pagination) { //если в data были данные о пагинации
+		Object.assign(pagination, data.pagination) //то обновляем данные которые пришли в data.pagination
+	}
+	observer.observe(cardsList.lastElementChild);
+};
+
+const loadMoreVacancies = () => {
+	if (pagination.totalPages > pagination.currentPage) {
+		const urlWithParams = new URL(lastUrl);
+		urlWithParams.searchParams.set('page', pagination.currentPage + 1);
+		urlWithParams.searchParams.set('limit', window.innerWidth < 768 ? 6 : 12);
+
+		getData(urlWithParams, renderMoreVacancies, renderError).then(() => {
+			lastUrl = urlWithParams;
+		});
+	}
+};
+
 const renderError = (error) => {
 	console.warn(error);
-}
-
+};
 
 const createModalVacancy = ({
 	id,
@@ -87,7 +119,6 @@ const createModalVacancy = ({
 `;
 
 const renderModal = (data) => {
-	console.log('data: ', data);
 	const modal = document.createElement('div');
 	modal.classList.add('modal');
 	const modalBody = document.createElement('div');
@@ -106,20 +137,41 @@ const renderModal = (data) => {
 	modalBody.append(modalClose);
 	modal.append(modalBody);
 	document.body.append(modal);
-}
+	//реализация закрытия модального окна путем его удаления, так как оно всегда вновь создается
+	modal.addEventListener('click', ({ target }) => {
+		if (target === modal || target.closest('.modal__close')) {
+			modal.remove();
+		}
+	})
+};
 
 const openModal = (id) => {
 	getData(`${API_URL}${VACANCY_URL}/${id}`, renderModal, renderError)
 };
 
+//Обсервер следит за чем либо
+const observer = new IntersectionObserver(
+	(entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) { //если элемент видимый то вызывается функция
+				loadMoreVacancies();
+			}
+		});
+	},
+	{
+		rootMargin: "100px", //функция будет срабатывать при прокрутке за 100рх до появления элемента
+	},
+);
+
 const init = () => {
-	const cardsList = document.querySelector('.cards__list');
+
+	const filterForm = document.querySelector('.filter__form');
 	//select city
 	const citySelect = document.getElementById('city');
 	const cityChoices = new Choices(citySelect, {
-		// searchEnabled: false,
+		searchEnabled: false,
 		itemSelectText: '',
-	})
+	});
 
 	getData(
 		`${API_URL}${LOCATION_URL}`,
@@ -139,20 +191,39 @@ const init = () => {
 	);
 
 	//cards
-	const url = new URL(`${API_URL}${VACANCY_URL}`)
+	const urlWithParams = new URL(`${API_URL}${VACANCY_URL}`);
 
-	getData(url, (data) => {
-		renderVacancy(data, cardsList)
-	}, renderError);
+	urlWithParams.searchParams.set('limit', window.innerWidth < 768 ? 6 : 12);
+	urlWithParams.searchParams.set('page', 1);
 
+	getData(urlWithParams, renderVacancies, renderError).then(() => {
+		lastUrl = urlWithParams;
+	});
+
+	//modal	
 	cardsList.addEventListener('click', ({ target }) => {
 		const vacancyCard = target.closest('.vacancy');
 		if (vacancyCard) {
 			const vacancyId = vacancyCard.dataset.id;
 			openModal(vacancyId);
-		}
-	})
-}
+		};
+	});
+
+	//Filter
+	filterForm.addEventListener('submit', (event) => {
+		event.preventDefault();
+		const formData = new FormData(filterForm); //Сюда получаются все name  имеющиеся в форме. FormData -специальный объект для получения данных из формы.
+
+		const urlWithParam = new URL(`${API_URL}${VACANCY_URL}`);
+
+		formData.forEach((value, key) => {
+			urlWithParam.searchParams.append(key, value);
+		});
+		getData(urlWithParam, renderVacancies, renderError).then(() => {
+			lastUrl = urlWithParam;
+		});
+	});
+};
 
 
 init();
