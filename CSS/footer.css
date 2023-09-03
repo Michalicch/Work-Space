@@ -1,11 +1,7 @@
 /* FOOTER */
-.footer {
-}
-.container {
-}
 .footer__container {  
-  margin-top: 50px;
-  margin-bottom: 40px;
+  padding-top: 50px;
+  padding: 40px;
   display: grid;
   gap: 27px;
   grid-template-areas: 
@@ -28,6 +24,37 @@
 }
 .footer__link:hover {
   color: brown;
+}
+
+@media (max-width: 1070px) {
+  .footer__container {  
+    padding-top: 40px;
+    padding-bottom: 32px;   
+  }
+}
+@media (max-width: 940px) {
+  .footer__container {  
+    padding-top: 30px;
+    padding-bottom: 24px;   
+  }
+}
+@media (max-width: 640px) {
+  .footer__container {  
+    padding-top: 20px;    
+  }
+  .footer__container {  
+    /* padding-top: 50px;
+    padding: 40px;
+    display: grid;
+    gap: 27px; */
+    grid-template-areas: 
+      "logo" 
+      "copyright" 
+      "contacts";  
+  }
+  .footer__contacts {
+    justify-self: start;    
+  }
 }
 /* ===============  Стили для флексов ========*/
 /* .footer__container {
