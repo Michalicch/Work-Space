@@ -1,6 +1,7 @@
 const API_URL = "https://workspace-methed.vercel.app/";
 const LOCATION_URL = "api/locations";
 const VACANCY_URL = "api/vacancy";
+const BOT_TOKEN = '6397310621:AAHv-W7fcutCFKsD3D0kgBkgdtB62E92WpM'//Запустить в телеграме бота  BotFather нажав start, далее запустить команду "/newbot - create a new bot"  и вставить сюда токен. t.me/lorka_intensive_bot. 
 
 const cardsList = document.querySelector('.cards__list');
 
@@ -112,12 +113,39 @@ const createModalVacancy = ({
 						<li class="vacancy__mfield">${location}</li>
 					</ul>
 				</div>
-				<p class="email__link">Отправляйте резюме на 
-					<a class="blue-text"  href="mailto:${email}">${email}</a>
-				</p>
+
+				${isNaN(parseInt(id.slice(-1))) ?
+				`	<p class="email__link">Отправляйте резюме на 
+						<a class="blue-text"  href="mailto:${email}">${email}</a>
+					</p>
+				` :
+				`<form class="link__tg">
+					<input class="link__input" type="text" name="message" placeholder="Укажите свой email для отклика">
+					<input name="vacancyId" type="hidden" value="${id}">
+					<button class="link__btn btn">Отправить</button>
+				 </form>
+				`
+				}				
 			</article>
 `;
 
+const sendTelegram = (modal) => {
+	modal.addEventListener('submit', (e)=> {
+		e.preventDefault();
+		const form = e.target.closest('.link__tg');
+		const skill = modal.querySelector('.vacancy__skill');
+		
+		const userId = '1459888343'; //сюда вставляем id который получаем с помощью бота телеграмма userinfobot
+		const text = `Отклик на вакансию ${skill.innerText} id = ${form.vacancyId.value}, email: ${form.message.value}`// получаем значения инпутов с немами vacancyId и message в соответсвующей форме.
+		const urlBot = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${userId}&text=${text}`;
+
+		fetch(urlBot).then(res => alert('Успешно отправлено')).catch(err => {
+			alert('Ошибка, не отправлено...');
+			console.log(err);
+
+		})
+	});
+};
 const renderModal = (data) => {
 	const modal = document.createElement('div');
 	modal.classList.add('modal');
@@ -142,7 +170,9 @@ const renderModal = (data) => {
 		if (target === modal || target.closest('.modal__close')) {
 			modal.remove();
 		}
-	})
+	});
+
+	sendTelegram(modal);
 };
 
 const openModal = (id) => {
@@ -171,6 +201,7 @@ const init = () => {
 	const cityChoices = new Choices(citySelect, {
 		searchEnabled: false,
 		itemSelectText: '',
+		placeholder: true,		
 	});
 
 	getData(
@@ -227,15 +258,3 @@ const init = () => {
 
 
 init();
-
-
-// fetch(API_URL + LOCATION_URL)
-// .then((response)=>{
-// 	return response.json();
-// })
-// .then((data)=>{
-// 	console.log(data);
-// })
-// .catch((error=>{
-// 	console.log(error + 'Произошла ошибка!!!');
-// }))

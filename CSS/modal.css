@@ -105,6 +105,26 @@
 .modal__close:focus-visible {
   outline-color: #808080;
 }
+.link__tg{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+.link__input{
+  width: 255px;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 16px;
+  border: 1px solid #a6adff;
+}
+.link__btn{
+  padding: 8px 24px;
+  background-color: #a6adff;
+  border-radius: 4px;
+}
+
+
+
 
 @media (max-width: 940px) {
 	.modal__body {

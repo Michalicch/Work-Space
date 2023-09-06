@@ -54,9 +54,6 @@
 .filter__label:not(:last-child) {
   margin-bottom: 8px;
 }
-
-.filter__buttons {
-}
 .filter__button {
   /* height: 32px; */
   padding: 8px 24px;
