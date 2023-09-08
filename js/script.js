@@ -1,7 +1,7 @@
 const API_URL = "https://workspace-methed.vercel.app/";
 const LOCATION_URL = "api/locations";
 const VACANCY_URL = "api/vacancy";
-const BOT_TOKEN = '6397310621:AAHv-W7fcutCFKsD3D0kgBkgdtB62E92WpM'//Запустить в телеграме бота  BotFather нажав start, далее запустить команду "/newbot - create a new bot"  и вставить сюда токен. t.me/lorka_intensive_bot. 
+const BOT_TOKEN = '1111111111111111111111111111'//Запустить в телеграме бота  BotFather нажав start, далее запустить команду "/newbot - create a new bot"  и вставить сюда токен. t.me/lorka_intensive_bot. 
 
 const cardsList = document.querySelector('.cards__list');
 
@@ -115,26 +115,26 @@ const createModalVacancy = ({
 				</div>
 
 				${isNaN(parseInt(id.slice(-1))) ?
-				`	<p class="email__link">Отправляйте резюме на 
+		`	<p class="email__link">Отправляйте резюме на 
 						<a class="blue-text"  href="mailto:${email}">${email}</a>
 					</p>
 				` :
-				`<form class="link__tg">
+		`<form class="link__tg">
 					<input class="link__input" type="text" name="message" placeholder="Укажите свой email для отклика">
 					<input name="vacancyId" type="hidden" value="${id}">
 					<button class="link__btn btn">Отправить</button>
 				 </form>
 				`
-				}				
+	}				
 			</article>
 `;
 
 const sendTelegram = (modal) => {
-	modal.addEventListener('submit', (e)=> {
+	modal.addEventListener('submit', (e) => {
 		e.preventDefault();
 		const form = e.target.closest('.link__tg');
 		const skill = modal.querySelector('.vacancy__skill');
-		
+
 		const userId = '1459888343'; //сюда вставляем id который получаем с помощью бота телеграмма userinfobot
 		const text = `Отклик на вакансию ${skill.innerText} id = ${form.vacancyId.value}, email: ${form.message.value}`// получаем значения инпутов с немами vacancyId и message в соответсвующей форме.
 		const urlBot = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${userId}&text=${text}`;
@@ -193,15 +193,56 @@ const observer = new IntersectionObserver(
 	},
 );
 
-const init = () => {
+const openFilter = (btn, dropDown, classNameBtn, classNameDd) => {
+	dropDown.style.height = `${dropDown.scrollHeight}px`;
+	btn.classList.add(classNameBtn);
+	dropDown.classList.add(classNameDd);
+}
+const closeFilter = (btn, dropDown, classNameBtn, classNameDd) => {
+	btn.classList.remove(classNameBtn);
+	dropDown.classList.remove(classNameDd);
+	dropDown.style.height = "";
+}
 
+const init = () => {
 	const filterForm = document.querySelector('.filter__form');
+	const vacanciesFilterBtn = document.querySelector('.vacancies__filter-btn');
+	const vacanciesFilter = document.querySelector('.vacancies__filter');
+
+	vacanciesFilterBtn.addEventListener('click', () => {
+
+		if (vacanciesFilterBtn.classList.contains('vacancies__filter-btn_active')) {
+			closeFilter(
+				vacanciesFilterBtn,
+				vacanciesFilter,
+				'vacancies__filter-btn_active',
+				'vacancies__filter_active');
+		} else {
+			openFilter(
+				vacanciesFilterBtn,
+				vacanciesFilter,
+				'vacancies__filter-btn_active',
+				'vacancies__filter_active');
+		}
+	});
+
+	window.addEventListener('resize', ()=>{
+		if (vacanciesFilterBtn.classList.contains('vacancies__filter-btn_active')) {
+			//vacanciesFilter.style.height = `${vacanciesFilter.scrollHeight}px`;
+			closeFilter(
+				vacanciesFilterBtn,
+				vacanciesFilter,
+				'vacancies__filter-btn_active',
+				'vacancies__filter_active');
+		}
+	})
+
 	//select city
 	const citySelect = document.getElementById('city');
 	const cityChoices = new Choices(citySelect, {
 		searchEnabled: false,
 		itemSelectText: '',
-		placeholder: true,		
+		placeholder: true,
 	});
 
 	getData(
@@ -239,6 +280,15 @@ const init = () => {
 			openModal(vacancyId);
 		};
 	});
+// Открытие модалки по нажатию клавиши Enter
+	cardsList.addEventListener('keydown', ({ code, target }) => {
+		const vacancyCard = target.closest('.vacancy');
+		if ((code === 'Enter' || code === 'NumpadEnter') && vacancyCard) {
+			const vacancyId = vacancyCard.dataset.id;
+			openModal(vacancyId);
+			target.blur(); //снимаем фокус
+		};
+	});
 
 	//Filter
 	filterForm.addEventListener('submit', (event) => {
@@ -252,6 +302,12 @@ const init = () => {
 		});
 		getData(urlWithParam, renderVacancies, renderError).then(() => {
 			lastUrl = urlWithParam;
+		}).then(()=>{
+			closeFilter(
+				vacanciesFilterBtn,
+				vacanciesFilter,
+				'vacancies__filter-btn_active',
+				'vacancies__filter_active');
 		});
 	});
 };
