@@ -16,6 +16,17 @@
   background-color: #a6adff;
   border-radius: 8px;
   font-size: 20px;
+  border: 2px solid transparent;
+  transition-property: color, background-color;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+}
+.header__link:hover {
+  background-color: #2A18FF;
+  color: #fff;
+}
+.header__link:focus-visible{
+  border-color: #4F58BE;
 }
 
 @media (max-width: 1070px) {

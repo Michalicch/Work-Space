@@ -4,6 +4,15 @@
 	padding: 16px;
 	height: 100%;
 	cursor: pointer;
+	outline: none;
+	border: 2px solid transparent; /* выставляем бордер неотображаемый, чтобы карточки не скакали и меняем при фокусе только цвет бордера*/
+	transition: background-color 0.1s ease-in-out;
+}
+.vacancy:focus-visible {
+	border-color: #abadff;/*здесь*/
+}
+.vacancy:hover{
+	background-color: #F9FAFF
 }
 .vacancy__img {
   max-height: 44px;

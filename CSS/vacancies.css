@@ -38,6 +38,11 @@
     margin-bottom: 24px;
     transition: margin-bottom 0.2s ease-in-out;
     transition-delay: 0.2s;
+    color: #2A18FF;
+    transition: color 0.2s ease-in-out;
+  }
+  .vacancies__filter-btn:hover {
+    color: #A6ADFF;
   }
   .vacancies__filter-btn::after {
     content: "";
