@@ -1,22 +1,9 @@
-.cards {
-}
-.cards__title {
-}
-
-.cards__list {
-  /* width: 880px; */
+.cards__list {  
   margin-bottom: 100px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 20px;
 }
-/* .cards__item {
-  width: 100%;
-  min-height: 220px;
-  padding: 16px;
-  background-color: #ffffff;
-  border-radius: 16px;
-} */
 @media (max-width: 940px) {
 	.cards__list {    
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

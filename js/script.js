@@ -243,6 +243,7 @@ const init = () => {
 		searchEnabled: false,
 		itemSelectText: '',
 		placeholder: true,
+		position: 'bottom',
 	});
 
 	getData(
