@@ -16,6 +16,10 @@
   height: 80px;
   background-color: #fff;
 }
+.file_active .file__wrap-preview {
+  min-width: auto;	
+  background-color: transparent;
+}
 .file__wrap-preview_active {
   min-width: auto;
 }
