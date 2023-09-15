@@ -1,4 +1,4 @@
-const API_URL = "https://workspace-methed.vercel.app/";
+const API_URL = "https://surf-wandering-sail.glitch.me/"; //"https://workspace-methed.vercel.app/"; 
 const LOCATION_URL = "api/locations";
 const VACANCY_URL = "api/vacancy";
 const BOT_TOKEN = '1111111111111111111111111111'//Запустить в телеграме бота  BotFather нажав start, далее запустить команду "/newbot - create a new bot"  и вставить сюда токен. t.me/lorka_intensive_bot. 
@@ -330,6 +330,7 @@ const init = () => {
 				errorLabelStyle: {
 					color: '#f00',
 				},
+				// errorFieldCssClass: "invalid",
 				errorsContainer: document.querySelector('.employer__error')
 			});
 			validate
@@ -367,7 +368,8 @@ const init = () => {
 				.addField('#description', [{ rule: 'required', errorMessage: "Добавьте описание" },])
 				.addRequiredGroup('#format', 'Выберите формат')
 				.addRequiredGroup('#experience', 'Выберите опыт')
-				.addRequiredGroup('#type', 'Выберите занятость'); 
+				.addRequiredGroup('#type', 'Выберите занятость');
+			return validate;
 		};
 		const fileControler = () => {
 			const file = document.querySelector('.file');
@@ -391,13 +393,33 @@ const init = () => {
 
 		const formControler = () => {
 			const form = document.querySelector('.employer__form');
+			const employerError = document.querySelector(".employer__error");
+			const validate = validationForm(form);
 
-			validationForm(form);
-
-			form.addEventListener('submit', (event) => {
+			form.addEventListener('submit', async (event) => {
 				event.preventDefault();
-				console.log('отправка');
 
+				if (!validate.isValid) {
+					return;
+				}
+
+				try {
+					const formData = new formData(form);
+					employerError.textContent = 'Отправка, подождите...';
+
+					const response = await fetch(`${API_URL}${VACANCY_URL}`, {
+						method: "POST",
+						body: formData,
+					});
+
+					if (response.ok) {
+						employerError.textContent = '';
+						window.location.href = "index.html";
+					}
+				} catch (error) {
+					employerError.textContent = 'Произошла ошибка!';
+					console.error(error);
+				}
 			});
 		};
 

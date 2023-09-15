@@ -22,8 +22,15 @@
 .footer__contact:first-child {
   margin-bottom: 8px;
 }
+.footer__link{
+  border: 2px solid transparent;
+  outline: 0;
+}
 .footer__link:hover {
   color: brown;
+}
+.footer__link:focus-visible {
+  border-color: #4f58be;
 }
 
 @media (max-width: 1070px) {

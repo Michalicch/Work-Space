@@ -85,9 +85,6 @@ fieldset {
 .blue-text {
   color: #2a18ff;
 }
-.invalid {
-  border: 2px solid #239700;  
-}
 
 
 @media (max-width: 1070px) {

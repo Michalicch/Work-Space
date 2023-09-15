@@ -10,9 +10,11 @@
   flex-direction: column;
   gap: 8px;
   margin-bottom: 40px;
+  border: 2px solid transparent;
+  
 }
-.employer__fieldset-radio {
-
+.employer__fieldset-radio:focus-visible {
+  border-color: #4f58be;
 }
 .employer__legend {
   margin-bottom: 13px;
@@ -37,7 +39,9 @@
   height: 20px;
   background-color: #ffffff;
   border-radius: 32px;
-  transition: box-shado;
+  transition: box-shado;  
+  border: 2px solid transparent;
+  outline: 0;
 }
 .radio__input::after {
   position: absolute;
@@ -48,6 +52,8 @@
   opacity: 0;
   transition: opacity 0.2s ease-in-out;
   border-radius: 50%;
+  border: 2px solid transparent;
+  outline: 0;
 }
 .radio__input:checked:after {
   opacity: 1;
@@ -70,6 +76,8 @@
   transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
   font-size: 20px;
   margin-right: 20px;
+  border: 2px solid transparent;
+  outline: 0;
 }
 .employer__error {
   color: #f00;
@@ -82,15 +90,11 @@
   background-color: #2a18ff;
   color: #fff;
 }
+.radio__input:focus-visible,
 .employer__submit:focus-visible {
   border-color: #4f58be;
 }
-.just-validate-error-field {
-  border: 2px solid #f00;
-}
-.just-validate-success-field{
-  border: 2px solid #239700;
-}
+
 
 @media (max-width: 768px) {
   .employer__fieldset-radio {

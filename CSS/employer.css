@@ -35,7 +35,8 @@
   height: 32px;
   padding: 0 16px;
   border-radius: 4px;
-  border: 0;
+  border: 2px solid transparent;
+  outline: 0;
 }
 .employer__input::placeholder {
   color: #ccc;
@@ -51,7 +52,21 @@
   padding: 7px 16px;
   border-radius: 4px;
   resize: vertical; /*разрешаем менять размер только по вертикали*/
-  border: 0;
+  outline: 0;
+  border: 2px solid transparent;
+}
+.employer__submit:focus-visible {
+  border-color: #4f58be;
+}
+.just-validate-error-field {
+  border: 2px solid #f00;
+}
+.just-validate-success-field {
+  border: 2px solid #239700;
+}
+.employer__input:focus-visible,
+.employer__textarea:focus-visible {
+  border-color: #4f58be;
 }
 
 @media (max-width: 1140px) {
@@ -77,14 +92,13 @@
     font-size: 24px;
     margin-bottom: 32px;
     letter-spacing: 0.48px;
-  }  
+  }
 }
 
-@media (max-width: 320px) {   
+@media (max-width: 320px) {
   .employer__title {
     font-size: 20px;
     margin-bottom: 24px;
     letter-spacing: 0.4px;
-  }  
+  }
 }
-
