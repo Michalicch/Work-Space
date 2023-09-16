@@ -371,6 +371,7 @@ const init = () => {
 				.addRequiredGroup('#type', 'Выберите занятость');
 			return validate;
 		};
+
 		const fileControler = () => {
 			const file = document.querySelector('.file');
 			const filePreview = file.querySelector('.file__preview');
@@ -397,14 +398,14 @@ const init = () => {
 			const validate = validationForm(form);
 
 			form.addEventListener('submit', async (event) => {
-				event.preventDefault();
-
+				event.preventDefault();				
 				if (!validate.isValid) {
 					return;
 				}
 
 				try {
-					const formData = new formData(form);
+					const formData = new FormData(form);
+					console.log(formData);
 					employerError.textContent = 'Отправка, подождите...';
 
 					const response = await fetch(`${API_URL}${VACANCY_URL}`, {
